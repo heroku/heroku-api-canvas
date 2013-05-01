@@ -54,7 +54,7 @@ class SignedRequest
     raise "Signed request has been tampered with." if decodedSignature != hmac
 
     # 3) Decode the base64 encoded payload of the canvas request.
-    jsonString = Base64.decode64(payload)
+    jsonString = Base64.decode64(payload).gsub("'","\\\\'")
     return jsonString
 
   end
