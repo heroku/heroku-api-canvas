@@ -23,7 +23,7 @@ if (!chatterTalk) {
         var body = {body : {messageSegments : [{type: "Text", text: message}]}};
 
         $$.client.ajax(url,
-            {token : sr.oauthToken,
+            {client : sr.client,
                 method: 'POST',
                 async: true,
                 contentType: "application/json",
