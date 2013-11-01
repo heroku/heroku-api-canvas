@@ -25,21 +25,6 @@ class CanvasController < ApplicationController
 
   # POST /canvas
   def post
-    @sr = params[:signed_request]
-
-    # Validate the signed request was provided.
-    raise "Signed request parameter required." if @sr.blank?()
-
-    # Retrieve consumer secret from environment
-    secret = ENV["CANVAS_CONSUMER_SECRET"]
-    raise "No consumer secret found in environment [CANVAS_CONSUMER_SECRET]." if secret.blank?()
-
-    # Construct the signed request helper
-    srHelper = SignedRequest.new(secret,@sr)
-
-    # Verify and decode the signed request.
-    @canvasRequestJson = srHelper.verifyAndDecode()
-
     credential = Base64.encode64(":#{ENV['HEROKU_API_KEY']}").delete("\r\n")
     response = Excon.get(
       'https://api.heroku.com/apps',
@@ -48,7 +33,6 @@ class CanvasController < ApplicationController
         'Authorization' => "Basic #{credential}",
       }
     )
-
     @apps = JSON.parse(response.body)
   end
 
