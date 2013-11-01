@@ -61,6 +61,12 @@ POSSIBILITY OF SUCH DAMAGE.
       <h2>Welcome to the Force.com Canvas Ruby example!</h2>
     </div>
 
+    <%- @apps.each do |app| -%>
+      <ul>
+        <li><abbr title="<%= app['uuid'] %>"><%= app['name'] %></abbr></li>
+      </ul>
+    <%- end -%>
+
     <div id="canvas-content">
       <h1>Canvas Request</h1>
       <h2>Below is some information received in the Canvas Request:</h2>

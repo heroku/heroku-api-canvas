@@ -13,6 +13,9 @@
 /log/*.log
 /tmp
 
+# Ignore environment files
+.env
+
 # Ignore other unneeded files.
 doc/
 *.swp

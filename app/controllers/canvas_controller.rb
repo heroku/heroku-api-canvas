@@ -43,6 +43,16 @@ class CanvasController < ApplicationController
     # Verify and decode the signed request.
     @canvasRequestJson = srHelper.verifyAndDecode()
 
+    credential = Base64.encode64(":#{ENV['HEROKU_API_KEY']}").delete("\r\n")
+    response = Excon.get(
+      'https://api.heroku.com/apps',
+      :headers => {
+        'Accept'        => 'application/vnd.heroku+json; version=3',
+        'Authorization' => "Basic #{credential}",
+      }
+    )
+
+    @apps = JSON.parse(response.body)
   end
 
 end
