@@ -24,7 +24,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_action do
+  before_filter do
     if params[:signed_request]
       @sr = params[:signed_request]
 
