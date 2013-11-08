@@ -23,6 +23,30 @@
 # POSSIBILITY OF SUCH DAMAGE.
 class CanvasController < ApplicationController
 
+  before_filter do
+    if params[:signed_request]
+      @sr = params[:signed_request]
+
+      # Validate the signed request was provided.
+      raise "Signed request parameter required." if @sr.blank?()
+
+      # Retrieve consumer secret from environment
+      secret = ENV["CANVAS_CONSUMER_SECRET"]
+      raise "No consumer secret found in environment [CANVAS_CONSUMER_SECRET]." if secret.blank?()
+
+      # Construct the signed request helper
+      srHelper = SignedRequest.new(secret,@sr)
+
+      # Verify and decode the signed request.
+      @canvasRequestJson = srHelper.verifyAndDecode()
+
+      session[:token] = JSON.parse(@canvasRequestJson)['context']['client']['oauthToken']
+    end
+    unless session[:token]
+      render :status => 400
+    end
+  end
+
   # POST /canvas
   def post
     credential = Base64.encode64(":#{ENV['HEROKU_API_KEY']}").delete("\r\n")
