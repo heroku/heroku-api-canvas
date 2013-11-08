@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'excon'
+gem 'foreman'
 gem 'rails', '3.2.12'
 gem 'bundler', '1.3.5'
 

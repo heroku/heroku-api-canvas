@@ -23,7 +23,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 CanvasRuby::Application.routes.draw do
-  get "canvas" => "canvas#index"
-  post "canvas" => "canvas#post"
-  get "callback" => "static#callback"
+  get  "callback" => "static#callback"
+
+  post "canvas"   => "canvas#post"
+
+  post "deploys"  => "deploys#post"
 end
