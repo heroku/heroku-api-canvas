@@ -11,14 +11,14 @@ class DeploysController < ApplicationController
     group_id = JSON.parse(excon.request(
       :method => :get,
       :path   => '/services/data/v29.0/chatter/groups',
-      :query  => { 'q' => params[:app] }
-    ).body)['groups'].detect {|group| group['name'] == params[:app]}['id']
+      :query  => { 'q' => params['app'] }
+    ).body)['groups'].detect {|group| group['name'] == params['app']}['id']
 
     excon.request(
       :body   => JSON.encode({
         'body' => {
           'messageSegments' => [{
-            'text' => "#{params[:user]} deployed #{params[:head]}",
+            'text' => "#{params['user']} deployed #{params['head']}",
             'type' => 'Text'
           }]
         }
