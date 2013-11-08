@@ -40,9 +40,9 @@ class CanvasController < ApplicationController
       # Verify and decode the signed request.
       @canvasRequestJson = srHelper.verifyAndDecode()
 
-      session[:token] = JSON.parse(@canvasRequestJson)['context']['client']['oauthToken']
+      session[:username] = JSON.parse(@canvasRequestJson)['context']['user']['userName']
     end
-    unless session[:token]
+    unless session[:username]
       render :status => 400
     end
   end
