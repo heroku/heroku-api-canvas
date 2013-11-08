@@ -8,11 +8,13 @@ class DeploysController < ApplicationController
       }
     )
 
-    group_id = JSON.parse(excon.request(
+    groups_response = excon.request(
       :method => :get,
       :path   => '/services/data/v29.0/chatter/groups',
       :query  => { 'q' => params['app'] }
-    ).body)['groups'].detect {|group| group['name'] == params['app']}['id']
+    )
+    puts groups_response.inspect
+    group_id = JSON.parse(groups_response.body)['groups'].detect {|group| group['name'] == params['app']}['id']
 
     excon.request(
       :body   => JSON.encode({
