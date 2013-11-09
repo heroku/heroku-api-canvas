@@ -24,7 +24,6 @@ class DeploysController < ApplicationController
       :path   => '/services/data/v29.0/chatter/groups',
       :query  => { 'q' => params['app'] }
     )
-    puts groups_response.inspect
     group_id = JSON.load(groups_response.body)['groups'].detect {|group| group['name'] == params['app']}['id']
 
     excon.request(
