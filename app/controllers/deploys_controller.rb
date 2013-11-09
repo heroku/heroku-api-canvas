@@ -27,16 +27,11 @@ class DeploysController < ApplicationController
     group_id = JSON.load(groups_response.body)['groups'].detect {|group| group['name'] == params['app']}['id']
 
     chatter_response = excon.request(
-      :body   => JSON.dump({
-        'body' => {
-          'messageSegments' => [{
-            'text' => "#{params['user']} deployed #{params['head']}",
-            'type' => 'Text'
-          }]
-        }
-      }),
       :method => :post,
-      :path   => "/services/data/v29.0/chatter/feeds/record/#{group_id}/feed-items"
+      :path   => "/services/data/v29.0/chatter/feeds/record/#{group_id}/feed-items",
+      :query  => {
+        'text' => "#{params['user']} deployed #{params['head']}",
+      }
     )
     puts chatter_response.body
 
