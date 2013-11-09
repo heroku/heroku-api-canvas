@@ -26,7 +26,7 @@ class DeploysController < ApplicationController
     )
     group_id = JSON.load(groups_response.body)['groups'].detect {|group| group['name'] == params['app']}['id']
 
-    excon.request(
+    chatter_response = excon.request(
       :body   => JSON.dump({
         'body' => {
           'messageSegments' => [{
@@ -38,6 +38,7 @@ class DeploysController < ApplicationController
       :method => :post,
       :path   => "/services/data/v29.0/chatter/feeds/record/#{group_id}/feed-items"
     )
+    puts chatter_response.inspect
 
     render :nothing => true, :status => 200
   end
