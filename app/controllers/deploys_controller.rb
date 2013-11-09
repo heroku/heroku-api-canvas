@@ -38,7 +38,7 @@ class DeploysController < ApplicationController
       :method => :post,
       :path   => "/services/data/v29.0/chatter/feeds/record/#{group_id}/feed-items"
     )
-    puts chatter_response.inspect
+    puts chatter_response.body
 
     render :nothing => true, :status => 200
   end
