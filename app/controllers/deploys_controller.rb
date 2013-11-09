@@ -10,7 +10,7 @@ class DeploysController < ApplicationController
         'refresh_token' => ENV['SALESFORCE_REFRESH_TOKEN']
       }
     )
-    oauth_access_token = JSON.parse(token_response.body)['access_token']
+    oauth_access_token = JSON.load(token_response.body)['access_token']
 
     excon = Excon.new(
       'https://na15.salesforce.com',
@@ -25,10 +25,10 @@ class DeploysController < ApplicationController
       :query  => { 'q' => params['app'] }
     )
     puts groups_response.inspect
-    group_id = JSON.parse(groups_response.body)['groups'].detect {|group| group['name'] == params['app']}['id']
+    group_id = JSON.load(groups_response.body)['groups'].detect {|group| group['name'] == params['app']}['id']
 
     excon.request(
-      :body   => JSON.encode({
+      :body   => JSON.dump({
         'body' => {
           'messageSegments' => [{
             'text' => "#{params['user']} deployed #{params['head']}",
