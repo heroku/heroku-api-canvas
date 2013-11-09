@@ -10,7 +10,7 @@ class DeploysController < ApplicationController
         'refresh_token' => ENV['SALESFORCE_REFRESH_TOKEN']
       }
     )
-    oauth_access_token = JSON.parse(token_response)['access_token']
+    oauth_access_token = JSON.parse(token_response.body)['access_token']
 
     excon = Excon.new(
       'https://na15.salesforce.com',
