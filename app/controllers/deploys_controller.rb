@@ -1,10 +1,21 @@
 class DeploysController < ApplicationController
   # POST /deploys
   def post
+    token_response = Excon.post(
+      'https://login.salesforce.com/services/oauth2/token',
+      :query => {
+        'client_id'     => ENV['SALESFORCE_CLIENT_ID'],
+        'client_secret' => ENV['SALESFORCE_CLIENT_SECRET'],
+        'grant_type'    => 'refresh_token',
+        'refresh_token' => ENV['SALESFORCE_REFRESH_TOKEN']
+      }
+    )
+    oauth_access_token = JSON.parse(token_response)['access_token']
+
     excon = Excon.new(
       'https://na15.salesforce.com',
       :headers => {
-        'Authorization' => "Bearer #{ENV['SALESFORCE_OAUTH_TOKEN']}"
+        'Authorization' => "Bearer #{oauth_access_token}"
       }
     )
 
