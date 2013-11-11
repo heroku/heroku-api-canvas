@@ -23,6 +23,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 CanvasRuby::Application.routes.draw do
+  get  "apps/:app_identifier" => "app#show"
+
   get  "callback" => "static#callback"
 
   post "canvas"   => "canvas#post"
