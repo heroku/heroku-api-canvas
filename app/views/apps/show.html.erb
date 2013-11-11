@@ -1,4 +1,4 @@
-<h1><a href="<%= @app['web_url'] %>"><%= @app['name'] %></a></h1>
+<h1><a href="/apps/<%= @app['name'] %>"><abbr title="<%= @app['uuid'] %><%= @app['name'] %></abbr></a></h1>
 
 <dl>
 <% @app.each do |key, value| %>
