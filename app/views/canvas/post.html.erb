@@ -54,60 +54,42 @@ POSSIBILITY OF SUCH DAMAGE.
     });
 
 </script>
- <div id="page">
-  <div id="content">
-    <div id="header">
-      <h1>Hello <span id='fullname'></span>...</h1>
-      <h2>Welcome to the Force.com Canvas Ruby example!</h2>
-    </div>
 
-    <%- @apps.each do |app| -%>
-      <ul>
-        <li><abbr title="<%= app['uuid'] %>"><%= app['name'] %></abbr></li>
-      </ul>
-    <%- end -%>
+<h1>Heroku Platform API Request</h1>
+<h2>Below are your apps from Heroku</h2>
+<%- @apps.each do |app| -%>
+  <ul>
+    <li><abbr title="<%= app['uuid'] %>"><%= app['name'] %></abbr></li>
+  </ul>
+<%- end -%>
 
-    <div id="canvas-content">
-      <h1>Canvas Request</h1>
-      <h2>Below is some information received in the Canvas Request:</h2>
-      <div id="canvas-request">
-        <table border="0" width="100%">
-	        <tr>
-	            <td></td>
-	            <td><b>First Name: </b><span id='firstname'></span></td>
-	            <td><b>Last Name: </b><span id='lastname'></span></td>
-	        </tr>
-	        <tr>
-	            <td><img id='profile' border="0" src="" /></td>
-	            <td><b>Username: </b><span id='username'></span></td>
-	            <td colspan="2"><b>Email Address: </b><span id='email'></span></td>
-	        </tr>
-	        <tr>
-	            <td></td>
-	            <td colspan="3"><b>Company: </b><span id='company'></span></td>
-	        </tr>
-       </table>
-    </div>
-    <div id="canvas-chatter">
-      <table border="0" width="100%">
-        <tr>
-          <td width="15%"><b>Post to Chatter:&nbsp</b></td>
-          <td width="65%"><input id="speech-input-field" type="text" x-webkit-speech/></td>
-          <td width="6%"><button id="chatter-submit" type="submit"/></td>
-          <td width="10%"><span id="status" style="color:green"></span></td>
-        </tr>
-      </table>
-    </div>
-
-    </div>
-  </div>
-
-	<div id="footercont">
-	    <div id="footerleft">
-	        <p>Powered By: <a title="Heroku" href="#" onclick="window.top.location.href='http://www.heroku.com'"><strong>Heroku</strong></a></p>
-	    </div>
-	    <div id="footerright">
-	        <p>Salesforce: <a title="Safe Harbor" href="http://www.salesforce.com/company/investor/safe_harbor.jsp"><strong>SafeHarbor</strong></a></p>
-	    </div>
-	</div>
+<h1>Canvas Request</h1>
+<h2>Below is some information received in the Canvas Request:</h2>
+<div id="canvas-request">
+  <table border="0" width="100%">
+    <tr>
+        <td></td>
+        <td><b>First Name: </b><span id='firstname'></span></td>
+        <td><b>Last Name: </b><span id='lastname'></span></td>
+    </tr>
+    <tr>
+        <td><img id='profile' border="0" src="" /></td>
+        <td><b>Username: </b><span id='username'></span></td>
+        <td colspan="2"><b>Email Address: </b><span id='email'></span></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan="3"><b>Company: </b><span id='company'></span></td>
+    </tr>
+  </table>
+</div>
+<div id="canvas-chatter">
+  <table border="0" width="100%">
+    <tr>
+      <td width="15%"><b>Post to Chatter:&nbsp</b></td>
+      <td width="65%"><input id="speech-input-field" type="text" x-webkit-speech/></td>
+      <td width="6%"><button id="chatter-submit" type="submit"/></td>
+      <td width="10%"><span id="status" style="color:green"></span></td>
+    </tr>
+  </table>
 </div>

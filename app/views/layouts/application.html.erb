@@ -33,6 +33,26 @@ POSSIBILITY OF SUCH DAMAGE.
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= yield %>
+<div id="page">
+  <div id="content">
+    <div id="header">
+      <h1>Hello <%= session[:username] %>...</h1>
+      <h2>Welcome to the Force.com Canvas + Heroku Platform API Ruby example!</h2>
+    </div>
+
+    <div id="canvas-content">
+      <%= yield %>
+    </div>
+
+    <div id="footercont">
+	    <div id="footerleft">
+	        <p>Powered By: <a title="Heroku" href="#" onclick="window.top.location.href='http://www.heroku.com'"><strong>Heroku</strong></a></p>
+	    </div>
+	    <div id="footerright">
+	        <p>Salesforce: <a title="Safe Harbor" href="http://www.salesforce.com/company/investor/safe_harbor.jsp"><strong>SafeHarbor</strong></a></p>
+	    </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

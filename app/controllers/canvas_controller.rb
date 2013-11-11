@@ -49,13 +49,9 @@ class CanvasController < ApplicationController
 
   # POST /canvas
   def post
-    credential = Base64.encode64(":#{ENV['HEROKU_API_KEY']}").delete("\r\n")
-    response = Excon.get(
-      'https://api.heroku.com/apps',
-      :headers => {
-        'Accept'        => 'application/vnd.heroku+json; version=3',
-        'Authorization' => "Basic #{credential}",
-      }
+    response = heroku_api.request(
+      :method => :get,
+      :path   => '/apps'
     )
     @apps = JSON.parse(response.body)
   end

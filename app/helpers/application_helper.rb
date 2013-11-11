@@ -22,4 +22,51 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 module ApplicationHelper
+  def chatter_api
+    @chatter_api ||= begin
+      token_response = Excon.post(
+        'https://login.salesforce.com/services/oauth2/token',
+        :query => {
+          'client_id'     => ENV['SALESFORCE_CLIENT_ID'],
+          'client_secret' => ENV['SALESFORCE_CLIENT_SECRET'],
+          'grant_type'    => 'refresh_token',
+          'refresh_token' => ENV['SALESFORCE_REFRESH_TOKEN']
+        }
+      )
+      oauth_access_token = JSON.load(token_response.body)['access_token']
+
+      Excon.new(
+        'https://na15.salesforce.com',
+        :headers => {
+          'Authorization' => "Bearer #{oauth_access_token}"
+        }
+      )
+    end
+  end
+
+  def chatter_group_id(name)
+    @chatter_group_ids ||= {}
+    @chatter_group_ids[name] ||= begin
+      groups_response = chatter_api.request(
+        :method => :get,
+        :path   => '/services/data/v29.0/chatter/groups',
+        :query  => { 'q' => name }
+      )
+      group_id = JSON.load(groups_response.body)['groups'].detect {|group| group['name'] == name}['id']
+    end
+  end
+
+  def heroku_api
+    @heroku_api ||= begin
+      credential = Base64.encode64(":#{ENV['HEROKU_API_KEY']}").delete("\r\n")
+
+      Excon.new(
+        'https://api.heroku.com',
+        :headers => {
+          'Accept'        => 'application/vnd.heroku+json; version=3',
+          'Authorization' => "Basic #{credential}",
+        }
+      )
+    end
+  end
 end
