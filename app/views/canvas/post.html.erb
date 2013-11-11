@@ -24,36 +24,6 @@ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABI
 NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 =end %>
-<script>
-    Sfdc.canvas(function() {
-        var sr = JSON.parse('<%= raw @canvasRequestJson %>');
-        // Save the token
-        Sfdc.canvas.oauth.token(sr.oauthToken);
-        var photoUri = sr.context.user.profileThumbnailUrl +  "?oauth_token=" + sr.client.oauthToken;
-        /**
-         * Check if we are in sites/communities.  If so, derive the url accordingly.
-         */
-        var isSites=null != sr.context.user.networkId;
-        var siteHost = isSites ? sr.context.user.siteUrl : sr.client.instanceUrl;
-        if (siteHost.lastIndexOf("/") == siteHost.length-1){
-            siteHost = siteHost.substring(0,siteHost.length-1);
-        }
-        Sfdc.canvas.byId('fullname').innerHTML = sr.context.user.fullName;
-        Sfdc.canvas.byId('profile').src = (photoUri.indexOf("http")==0 ? "" :siteHost) + photoUri;
-        Sfdc.canvas.byId('firstname').innerHTML = sr.context.user.firstName;
-        Sfdc.canvas.byId('lastname').innerHTML = sr.context.user.lastName;
-        Sfdc.canvas.byId('username').innerHTML = sr.context.user.userName;
-        Sfdc.canvas.byId('email').innerHTML = sr.context.user.email;
-        Sfdc.canvas.byId('company').innerHTML = sr.context.organization.name;
-
-        chatterTalk.init(sr, "chatter-submit", "speech-input-field", function(data) {
-            Sfdc.canvas.byId('status').innerHTML = data.statusText;
-            Sfdc.canvas.byId("speech-input-field").value = "";
-        });
-
-    });
-
-</script>
 <div id="canvas-content">
   <h1>Heroku Platform API Request</h1>
   <h2>Below are your apps from Heroku</h2>
@@ -100,3 +70,32 @@ POSSIBILITY OF SUCH DAMAGE.
     </table>
   </div>
 </div>
+<script>
+    Sfdc.canvas(function() {
+        var sr = JSON.parse('<%= raw @canvasRequestJson %>');
+        // Save the token
+        Sfdc.canvas.oauth.token(sr.oauthToken);
+        var photoUri = sr.context.user.profileThumbnailUrl +  "?oauth_token=" + sr.client.oauthToken;
+        /**
+         * Check if we are in sites/communities.  If so, derive the url accordingly.
+         */
+        var isSites=null != sr.context.user.networkId;
+        var siteHost = isSites ? sr.context.user.siteUrl : sr.client.instanceUrl;
+        if (siteHost.lastIndexOf("/") == siteHost.length-1){
+            siteHost = siteHost.substring(0,siteHost.length-1);
+        }
+        Sfdc.canvas.byId('fullname').innerHTML = sr.context.user.fullName;
+        Sfdc.canvas.byId('profile').src = (photoUri.indexOf("http")==0 ? "" :siteHost) + photoUri;
+        Sfdc.canvas.byId('firstname').innerHTML = sr.context.user.firstName;
+        Sfdc.canvas.byId('lastname').innerHTML = sr.context.user.lastName;
+        Sfdc.canvas.byId('username').innerHTML = sr.context.user.userName;
+        Sfdc.canvas.byId('email').innerHTML = sr.context.user.email;
+        Sfdc.canvas.byId('company').innerHTML = sr.context.organization.name;
+
+        chatterTalk.init(sr, "chatter-submit", "speech-input-field", function(data) {
+            Sfdc.canvas.byId('status').innerHTML = data.statusText;
+            Sfdc.canvas.byId("speech-input-field").value = "";
+        });
+
+    });
+</script>
