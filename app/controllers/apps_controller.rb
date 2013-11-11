@@ -15,7 +15,7 @@ class AppsController < ApplicationController
 
     chatter_response = chatter_api.request(
       :method => :get,
-      :path   => "/services/data/v29.0/chatter/feeds/record/#{chatter_group_id(params['app'])}/feed-items"
+      :path   => "/services/data/v29.0/chatter/feeds/record/#{chatter_group_id(params[:app_identifier])}/feed-items"
     )
     @feed_items = JSON.parse(chatter_response.body)['items']
 
