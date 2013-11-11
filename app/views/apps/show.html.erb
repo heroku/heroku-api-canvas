@@ -6,11 +6,11 @@
   </a>
 </h1>
 
-<dl>
+<ul>
 <% @app.each do |key, value| %>
-  <strong><%= key %>:</strong> <%= value %>
+  <li><strong><%= key %>:</strong> <%= value %></li>
 <% end %>
-</dl>
+</ul>
 
 <h1>Recent Activity</h1>
 <ul>

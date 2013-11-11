@@ -19,7 +19,6 @@ class AppsController < ApplicationController
     )
     @feed_items = JSON.parse(chatter_response.body)['items']
 
-
   end
 
 end
