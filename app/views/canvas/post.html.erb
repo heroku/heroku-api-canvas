@@ -59,7 +59,13 @@ POSSIBILITY OF SUCH DAMAGE.
 <h2>Below are your apps from Heroku</h2>
 <%- @apps.each do |app| -%>
   <ul>
-    <li><a href="/apps/<%= app['name'] %>"><abbr title="<%= app['uuid'] %><%= app['name'] %></abbr></a></li>
+    <li>
+      <a href="/apps/<%= app['name'] %>">
+        <abbr title="<%= app['uuid'] %>">
+          <%= app['name'] %>
+        </abbr>
+      </a>
+    </li>
   </ul>
 <%- end -%>
 
