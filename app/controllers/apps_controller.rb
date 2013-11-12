@@ -1,7 +1,7 @@
 class AppsController < ApplicationController
   before_filter do
     unless session[:username]
-      render :status => 400
+      render 'Unauthorized', :status => 401
     end
   end
 
