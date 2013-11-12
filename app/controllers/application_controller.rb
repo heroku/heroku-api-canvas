@@ -80,6 +80,8 @@ class ApplicationController < ActionController::Base
         :query  => { 'q' => name }
       )
       group_id = JSON.load(groups_response.body)['groups'].detect {|group| group['name'] == name}['id']
+    rescue
+      nil
     end
   end
 

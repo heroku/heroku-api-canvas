@@ -53,11 +53,16 @@ class AppsController < ApplicationController
     )
     @app = JSON.load(heroku_response.body)
 
-    chatter_response = chatter_api.request(
-      :method => :get,
-      :path   => "/services/data/v29.0/chatter/feeds/record/#{chatter_group_id(params[:app_identifier])}/feed-items"
-    )
-    @feed_items = JSON.load(chatter_response.body)['items']
+    # allow eventual consistency right after creating
+    @feed_items = if group_id = chatter_group_id(params[:app_identifier])
+      chatter_response = chatter_api.request(
+        :method => :get,
+        :path   => "/services/data/v29.0/chatter/feeds/record/#{group_id}/feed-items"
+      )
+      JSON.load(chatter_response.body)['items']
+    else
+      []
+    end
   end
 
 end
