@@ -22,26 +22,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 class CanvasController < ApplicationController
-
   before_filter do
-    if params[:signed_request]
-      @sr = params[:signed_request]
-
-      # Validate the signed request was provided.
-      raise "Signed request parameter required." if @sr.blank?()
-
-      # Retrieve consumer secret from environment
-      secret = ENV["CANVAS_CONSUMER_SECRET"]
-      raise "No consumer secret found in environment [CANVAS_CONSUMER_SECRET]." if secret.blank?()
-
-      # Construct the signed request helper
-      srHelper = SignedRequest.new(secret,@sr)
-
-      # Verify and decode the signed request.
-      @canvasRequestJson = srHelper.verifyAndDecode()
-
-      session[:username] = JSON.parse(@canvasRequestJson)['context']['user']['userName']
-    end
     unless session[:username]
       render :status => 401, :text => 'Unauthorized'
     end
