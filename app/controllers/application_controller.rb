@@ -41,6 +41,8 @@ class ApplicationController < ActionController::Base
       # Verify and decode the signed request.
       @canvasRequestJson = srHelper.verifyAndDecode()
 
+      puts JSON.parse(@canvasRequestJson)
+
       session[:username] = JSON.parse(@canvasRequestJson)['context']['user']['userName']
     end
   end
