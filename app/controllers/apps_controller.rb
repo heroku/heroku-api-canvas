@@ -19,27 +19,28 @@ class AppsController < ApplicationController
       :method => :post,
       :path   => '/apps'
     )
+    puts heroku_response.inspect
     app = JSON.load(heroku_response.body)
 
     # add deploy hook
-    heroku_response = heroku_api.request(
+    puts heroku_api.request(
       :body   => JSON.dump(
         :plan => 'deployhooks:http',
         :url  => 'http://heroku-api-canvas.herokuapp.com/deploys'
       ),
       :method => :post,
       :path   => "/apps/#{params['name']}/addons"
-    )
+    ).inspect
 
     # create chatter group
-    chatter_response = chatter_api.request(
+    puts chatter_api.request(
       :method => :post,
       :path   => "/services/data/v29.0/chatter/groups",
       :query  => {
         :name       => params[:name],
         :visibility => 'PublicAccess'
       }
-    )
+    ).inspect
 
     redirect_to "/apps/#{app['name']}"
   end
