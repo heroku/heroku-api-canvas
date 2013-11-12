@@ -43,7 +43,7 @@ class CanvasController < ApplicationController
       session[:username] = JSON.parse(@canvasRequestJson)['context']['user']['userName']
     end
     unless session[:username]
-      render 'Unauthorized', :status => 401
+      render :status => 401, :text => 'Unauthorized'
     end
   end
 
