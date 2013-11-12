@@ -27,18 +27,18 @@ POSSIBILITY OF SUCH DAMAGE.
 <div id="canvas-content">
   <h1>Heroku Platform API Request</h1>
   <h2>Below are your apps from Heroku</h2>
+  <ul>
   <%- @apps.each do |app| -%>
-    <ul>
-      <li>
-        <a href="/apps/<%= app['name'] %>">
-          <abbr title="<%= app['uuid'] %>">
-            <%= app['name'] %>
-          </abbr>
-        </a>
-      </li>
-      <li><a href="/apps/new">Create New App</a></li>
-    </ul>
+    <li>
+      <a href="/apps/<%= app['name'] %>">
+        <abbr title="<%= app['uuid'] %>">
+          <%= app['name'] %>
+        </abbr>
+      </a>
+    </li>
   <%- end -%>
+    <li><a href="/apps/new">Create New App</a></li>
+  </ul>
 
   <h1>Canvas Request</h1>
   <h2>Below is some information received in the Canvas Request:</h2>

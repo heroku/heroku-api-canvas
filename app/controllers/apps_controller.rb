@@ -41,7 +41,7 @@ class AppsController < ApplicationController
       }
     )
 
-    redirect "/apps/#{app['name']}"
+    redirect_to "/apps/#{app['name']}"
   end
 
   # GET /apps/:app_identifier
