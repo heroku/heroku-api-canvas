@@ -34,7 +34,7 @@ class CanvasController < ApplicationController
       :method => :get,
       :path   => '/apps'
     )
-    @apps = JSON.parse(response.body)
+    @apps = JSON.load(response.body)
   end
 
 end
